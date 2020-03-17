@@ -8,10 +8,7 @@ module.exports.run = async (bot, message, args, prefix) => {
     return '#' + Math.floor(Math.random() * 16777215).toString(16);
   }
 
-  let guild = message.guild;
-  let roleProf = guild.roles.cache.find(role => role.id === "687757475365126154");
-  if(roleProf == undefined) return;
-  if((!message.member.roles.cache.has(roleProf.id)) && (!message.member.hasPermission("MANAGE_MESSAGES"))) return message.channel.send(`${errorX} Vous n'avez pas la permission d'utiliser \`poll\` !`);
+  if(!message.member.hasPermission("MANAGE_MESSAGES")) return message.channel.send(`${errorX} Vous n'avez pas la permission d'utiliser \`poll\` !`);
   let nom = message.member.nickname;
   if(nom == null) nom = message.author.tag;
   if(!args[0]) return message.channel.send(`${errorX} Vous devez ajouter une question !`);

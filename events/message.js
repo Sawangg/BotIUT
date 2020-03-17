@@ -1,5 +1,6 @@
 const Discord = require("discord.js");
 const botconfig = require("../util/config.json");
+const bleuFonce = botconfig.bleuFonce;
 
 module.exports = (bot, message) => {
 
@@ -25,7 +26,12 @@ module.exports = (bot, message) => {
             } else {
                 command = messageArray[0].slice(prefix.length);
             }
-            if(!command) return message.channel.send(``);
+            if(!command) {
+                let commandEmbed = new Discord.MessageEmbed()
+                .setDescription(`💗 Dev par Léo Mercier • [Github](https://github.com/Sawangg/BotIUT)`)
+                .setColor(bleuFonce);
+                message.channel.send({embed : commandEmbed});
+            }
             if(bot.commands.has(command)) {
                 return bot.commands.get(command).run(bot, message, args, prefix);
             } else if(bot.aliases.has(command)) {

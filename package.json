@@ -1,6 +1,6 @@
 {
   "name": "botiut",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "Discord Bot de l'IUT Informatique du Limousin",
   "main": "index.js",
   "scripts": {
@@ -13,26 +13,17 @@
   "author": "Sawang",
   "license": "MIT",
   "dependencies": {
-    "@discordjs/opus": "^0.1.0",
-    "@discordjs/uws": "^10.149.0",
-    "better-sqlite3": "^5.4.3",
     "bufferutil": "^4.0.1",
-    "discord.js": "^12.0.2",
-    "erlpack": "github:discordapp/erlpack",
+    "discord.js": "^12.3.1",
+    "erlpack": "^0.1.3",
     "fs": "0.0.1-security",
-    "libsodium-wrappers": "^0.7.6",
-    "moment": "^2.24.0",
-    "moment-duration-format": "^2.3.2",
-    "nan": "^2.14.0",
-    "node-gyp": "^6.1.0",
-    "random-puppy": "^1.1.0",
-    "simple-youtube-api": "^5.2.1",
+    "libsodium-wrappers": "^0.7.8",
+    "nan": "^2.14.1",
+    "node-gyp": "^7.1.0",
     "sodium": "^3.0.2",
-    "trek-captcha": "^0.4.0",
     "utf-8-validate": "^5.0.2",
     "xmlhttprequest": "^1.8.0",
-    "ytdl-core": "^1.0.7",
-    "zlib-sync": "^0.1.6",
+    "zlib-sync": "^0.1.7",
     "zucc": "^0.1.2"
   }
 }

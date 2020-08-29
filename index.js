@@ -1,3 +1,5 @@
+// Développer par Léo Mercier 2020
+
 if (process.version.slice(1).split(".")[0] < 12) throw new Error("[Error] Node 12.0.0 or higher is required. Update Node on your system !");
 
 const Discord = require('discord.js');

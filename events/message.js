@@ -5,14 +5,14 @@ const bleuFonce = botconfig.bleuFonce;
 module.exports = (bot, message) => {
 
     if(message.channel.type === "dm") return;
-    let guild = message.guild;
+    const guild = message.guild;
     if(!guild || message.author.bot) return;
 
     // Command Handler
 
     let messageArray = message.content.split(/ +/);
     for (let i = 0; i < messageArray.length; i++) {
-        messageArray[i] = messageArray[i].toString().toLowerCase(); 
+        messageArray[i] = messageArray[i].toString().toLowerCase();
     }
     let args = messageArray.slice(1);
     let command;
@@ -27,10 +27,10 @@ module.exports = (bot, message) => {
                 command = messageArray[0].slice(prefix.length);
             }
             if(!command) {
-                let commandEmbed = new Discord.MessageEmbed()
-                .setDescription(`💗 Dev par Léo Mercier • [Github](https://github.com/Sawangg/BotIUT)`)
+                const commandEmbed = new Discord.MessageEmbed()
+                .setDescription("💗 Dev par Léo Mercier • [Github](https://github.com/Sawangg/BotIUT)")
                 .setColor(bleuFonce);
-                message.channel.send({embed : commandEmbed});
+                message.channel.send({ embed : commandEmbed });
             }
             if(bot.commands.has(command)) {
                 return bot.commands.get(command).run(bot, message, args, prefix);
@@ -40,4 +40,4 @@ module.exports = (bot, message) => {
             return;
         }
     }
-}
+};

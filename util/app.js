@@ -7,16 +7,16 @@ const token = tokenconf.token;
 const bot = new Discord.Client({
     disableEveryone: true,
     shardCount: 1,
+    partials: ["MESSAGE", "CHANNEL", "REACTION"],
 });
 bot.commands = new Discord.Collection();
 bot.aliases = new Discord.Collection();
 bot.login(token);
-bot.setMaxListeners(0);
 
 const init = async () => {
 
     // Event Handler
-    
+
     const evtFiles = await readdir("./events/");
     console.log(`[Events] Loaded a total of ${evtFiles.length} events !`);
     evtFiles.forEach(file => {
@@ -35,19 +35,19 @@ const init = async () => {
 
     // Commands Loader
 
-    let commands = ["misc"];
-    let count = [];
+    const commands = ["misc"];
+    const count = [];
 
     for(let i = 0; i < commands.length; i++) {
         fs.readdir(`./commands/${commands[i]}/`, (err, files) => {
             if(err) console.log(err);
-            let jsfile = files.filter(f => f.split(".").pop() === "js");
-            if(jsfile.length <= 0){
+            const jsfile = files.filter(f => f.split(".").pop() === "js");
+            if(jsfile.length <= 0) {
                 return console.log(`[Commands] No Commands in /${commands[i]}/ !`);
             }
-      
+
             jsfile.forEach((f) =>{
-            let props = require(`../commands/${commands[i]}/${f}`);
+            const props = require(`../commands/${commands[i]}/${f}`);
             if (props.conf && props.conf.name) {
                 bot.commands.set(props.conf.name, props);
                 props.conf.aliases.forEach(alias => {
@@ -62,9 +62,9 @@ const init = async () => {
     }
 
     function buffer() {
-        let result = count.reduce((a, b) => a + b, 0);
+        const result = count.reduce((a, b) => a + b, 0);
         console.log(`[Commands] Loaded a total of ${result} commands !`);
     } setTimeout(buffer, 5);
-}
+};
 
 init();

@@ -17,7 +17,7 @@ module.exports.run = async (bot, message) => {
         bot.shard.broadcastEval("this.guilds.cache.reduce((prev, guild) => prev + guild.memberCount, 0)"),
     ];
 
-    Promise.all(promises).then(results => {
+    return Promise.all(promises).then(results => {
         const totalGuilds = results[0].reduce((prev, guildCount) => prev + guildCount, 0);
         const totalMembers = results[1].reduce((prev, memberCount) => prev + memberCount, 0);
 

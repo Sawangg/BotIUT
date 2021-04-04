@@ -4,38 +4,38 @@ const bleuFonce = botconfig.bleuFonce;
 
 module.exports = (bot, message) => {
 
-    if(message.channel.type === "dm") return;
-    const guild = message.guild;
-    if(!guild || message.author.bot) return;
+    if ((!message.guild) || (message.author.bot)) return;
 
     // Command Handler
 
-    let messageArray = message.content.split(/ +/);
-    for (let i = 0; i < messageArray.length; i++) {
-        messageArray[i] = messageArray[i].toString().toLowerCase();
-    }
+    const messageArray = message.content.split(/ +/);
     let args = messageArray.slice(1);
     let command;
 
     for(const prefix of [botconfig.prefix, `<@${bot.user.id}>`, `<@!${bot.user.id}>`]) {
-        if(message.content.toLowerCase().startsWith(prefix)) {
+        if (message.content.toLowerCase().startsWith(prefix)) {
             if(message.content.toLowerCase().startsWith("<@")) {
-                command = args[0];
-                messageArray = messageArray.splice(1);
-                args = args.filter(item => item !== command);
+                if (args[0]) {
+                    command = args[0].toLowerCase();
+                } else {
+                    const commandEmbed = new Discord.MessageEmbed()
+                    .setDescription("💗 Dev par Léo Mercier • [Github](https://github.com/Sawangg/BotIUT)")
+                    .setColor(bleuFonce);
+                    return message.channel.send({ embed : commandEmbed });
+                }
+                args = args.slice(1);
             } else {
-                command = messageArray[0].slice(prefix.length);
+                command = messageArray[0].slice(prefix.length).toLowerCase();
             }
-            if(!command) {
-                const commandEmbed = new Discord.MessageEmbed()
-                .setDescription("💗 Dev par Léo Mercier • [Github](https://github.com/Sawangg/BotIUT)")
-                .setColor(bleuFonce);
-                message.channel.send({ embed : commandEmbed });
+
+            let cmd;
+            if (bot.commands.has(command)) {
+                cmd = bot.commands.get(command);
+            } else if (bot.aliases.has(command)) {
+                cmd = bot.commands.get(bot.aliases.get(command));
             }
-            if(bot.commands.has(command)) {
-                return bot.commands.get(command).run(bot, message, args, prefix);
-            } else if(bot.aliases.has(command)) {
-                return bot.commands.get(bot.aliases.get(command)).run(bot, message, args, prefix);
+            if (cmd != undefined) {
+                return cmd.run(bot, message, args);
             }
             return;
         }

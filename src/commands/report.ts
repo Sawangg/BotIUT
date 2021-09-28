@@ -17,7 +17,7 @@ export const run: RunInterface = async (client, interaction) => {
 	if(!logs) return;
 
 	const reportLogsEmbed = new MessageEmbed()
-		.setDescription(`**Action :** Report\n**Membre :** ${reportMember?.nickname === null ? reportMember.user.username : reportMember?.nickname} (${reportMember?.id})\n**Reported :** ${reportedMember?.nickname === null ? reportedMember.user.username : reportMember?.nickname} (${reportedMember?.id})\n**Raison :** ${interaction.options.getString("reason")}`)
+		.setDescription(`**Action :** Report\n**Membre :** ${reportMember?.nickname === null ? reportMember.user.username : reportMember?.nickname} (${reportMember?.id})\n**Reported :** ${reportedMember?.nickname === null ? reportedMember.user.username : reportedMember?.nickname} (${reportedMember?.id})\n**Raison :** ${interaction.options.getString("reason")}`)
 		.setFooter(`BotIUT v${version}`)
 		.setColor("#4752C4")
 		.setTimestamp();

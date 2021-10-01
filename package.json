@@ -1,6 +1,6 @@
 {
   "name": "botiut",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description": "Discord Bot de l'IUT Informatique du Limousin",
   "main": "index.js",
   "scripts": {

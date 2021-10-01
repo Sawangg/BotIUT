@@ -10,14 +10,11 @@ export const run: RunInterface = async (client, interaction) => {
 	const guild = client.guilds.cache.get(interaction.guildId);
 	if(!guild) return;
 
-	const reportMember = await guild.members.fetch(interaction.member.user.id);
-	const reportedMember = await guild.members.fetch(reportedUser.id);
-
     const logs = guild.channels.cache.find(channel => channel.id === process.env.LOGS);
 	if(!logs) return;
 
 	const reportLogsEmbed = new MessageEmbed()
-		.setDescription(`**Action :** Report\n**Membre :** ${reportMember?.nickname === null ? reportMember.user.username : reportMember?.nickname} (${reportMember?.id})\n**Reported :** ${reportedMember?.nickname === null ? reportedMember.user.username : reportedMember?.nickname} (${reportedMember?.id})\n**Raison :** ${interaction.options.getString("reason")}`)
+		.setDescription(`**Action :** Report\n**Membre :** <@${interaction.member.user.id}> (${interaction.member.user.id})\n**Reported :** <@${reportedUser.id}> (${reportedUser.id})\n**Channel :** <#${interaction.channelId}>\n**Raison :** ${interaction.options.getString("reason")}`)
 		.setFooter(`BotIUT v${version}`)
 		.setColor("#4752C4")
 		.setTimestamp();

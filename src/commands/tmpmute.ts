@@ -36,10 +36,10 @@ export const run: RunInterface = async (client, interaction) => {
 	const logs = interaction.guild.channels.cache.find(channel => channel.id === process.env.LOGS);
 	const channelId = interaction.channelId;
 	const time = interaction.options.getInteger("secondes")!;
-	const reason = interaction.options.getString("reason");
+	const raison = interaction.options.getString("raison");
 
 	const muteLogsEmbed = new MessageEmbed()
-		.setDescription(`**Action :** Tmpmute\n**Modérateur :** <@${interaction.member.user.id}> (${interaction.member.user.id})\n**Membre :** <@${mutedUser.id}> (${mutedUser.id})\n**Channel :** <#${interaction.channelId}>\n**Secondes : ** ${time}\n**Raison :** ${reason}`)
+		.setDescription(`**Action :** Tmpmute\n**Modérateur :** <@${interaction.member.user.id}> (${interaction.member.user.id})\n**Membre :** <@${mutedUser.id}> (${mutedUser.id})\n**Channel :** <#${interaction.channelId}>\n**Secondes : ** ${time}\n**Raison :** ${raison}`)
 		.setFooter(`BotIUT v${version}`)
 		.setColor("#ADD8E6")
 		.setTimestamp();
@@ -50,11 +50,10 @@ export const run: RunInterface = async (client, interaction) => {
 		channels.forEach(async (channel: GuildChannel) => {
 			if (channel.type === "GUILD_TEXT") await channel.permissionOverwrites.delete(mutedMember);
 		});
-	
+
 		const unmuteLogsEmbed = new MessageEmbed()
-			.setDescription(`**Action :** Unmute automatique\n**Modérateur :** <@${client.user?.id}> (${client.user?.id})\n**Membre :** <@${mutedUser.id}> (${mutedUser.id})\n**Channel :** <#${channelId}>\n**Secondes : ** ${time}\n**Raison :** ${reason}`)
+			.setDescription(`**Action :** Unmute automatique\n**Modérateur :** <@${client.user?.id}> (${client.user?.id})\n**Membre :** <@${mutedUser.id}> (${mutedUser.id})\n**Channel :** <#${channelId}>\n**Secondes : ** ${time}\n**Raison :** ${raison}`)
 			.setFooter(`BotIUT v${version}`)
-			.setColor("#E6BBAD")
 			.setTimestamp();
 		(logs as TextChannel)?.send({ embeds: [unmuteLogsEmbed] });
 	}, time * 1000);
@@ -62,7 +61,7 @@ export const run: RunInterface = async (client, interaction) => {
 
 export const interaction: Object = {
 	name: "tmpmute",
-	usage: "tmpmute <user> <reason>",
+	usage: "tmpmute <user> <raison>",
 	description: "Mute un membre du serveur",
 	/*permissions: [
 		{
@@ -85,7 +84,7 @@ export const interaction: Object = {
 			required: true,
 		},
 		{
-			name: "reason",
+			name: "raison",
 			type: "STRING",
 			description: "La raison du tmpmute",
 			required: true,

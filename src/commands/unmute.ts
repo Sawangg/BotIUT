@@ -23,8 +23,8 @@ export const run: RunInterface = async (client, interaction) => {
 	}
 
 	const channels = await interaction.guild.channels.fetch();
-	channels.forEach(async (channel : GuildChannel) => {
-		if(channel.type === "GUILD_TEXT") await channel.permissionOverwrites.delete(mutedMember);
+	channels.forEach(async (channel: GuildChannel) => {
+		if (channel.type === "GUILD_TEXT") await channel.permissionOverwrites.delete(mutedMember);
 	});
 
 	const repEmbed = new MessageEmbed()
@@ -35,7 +35,7 @@ export const run: RunInterface = async (client, interaction) => {
 	const logs = interaction.guild.channels.cache.find(channel => channel.id === process.env.LOGS);
 
 	const unmuteLogsEmbed = new MessageEmbed()
-		.setDescription(`**Action :** Unmute\n**Modérateur :** <@${interaction.member.user.id}> (${interaction.member.user.id})\n**Membre :** <@${mutedUser.id}> (${mutedUser.id})\n**Channel :** <#${interaction.channelId}>\n**Raison :** ${interaction.options.getString("reason") ? interaction.options.getString("reason") : "Aucune raison spécifiée"}`)
+		.setDescription(`**Action :** Unmute\n**Modérateur :** <@${interaction.member.user.id}> (${interaction.member.user.id})\n**Membre :** <@${mutedUser.id}> (${mutedUser.id})\n**Channel :** <#${interaction.channelId}>\n**Raison :** ${interaction.options.getString("raison") ? interaction.options.getString("raison") : "Aucune raison spécifiée"}`)
 		.setFooter(`BotIUT v${version}`)
 		.setColor("#A3FF84")
 		.setTimestamp();
@@ -44,7 +44,7 @@ export const run: RunInterface = async (client, interaction) => {
 
 export const interaction: Object = {
 	name: "unmute",
-	usage: "unmute <user> [reason]",
+	usage: "unmute <user> [raison]",
 	description: "Unmute un membre du serveur",
 	/*permissions: [
 		{
@@ -61,7 +61,7 @@ export const interaction: Object = {
 			required: true,
 		},
 		{
-			name: "reason",
+			name: "raison",
 			type: "STRING",
 			description: "La raison de l'unmute",
 			required: false,

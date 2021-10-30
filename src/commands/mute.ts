@@ -23,8 +23,8 @@ export const run: RunInterface = async (client, interaction) => {
 	}
 
 	const channels = await interaction.guild.channels.fetch();
-	channels.forEach(async (channel : GuildChannel) => {
-		if(channel.type === "GUILD_TEXT") await channel.permissionOverwrites.create(mutedMember, { SEND_MESSAGES: false } );
+	channels.forEach(async (channel: GuildChannel) => {
+		if (channel.type === "GUILD_TEXT") await channel.permissionOverwrites.create(mutedMember, { SEND_MESSAGES: false });
 	});
 
 	const repEmbed = new MessageEmbed()
@@ -35,7 +35,7 @@ export const run: RunInterface = async (client, interaction) => {
 	const logs = interaction.guild.channels.cache.find(channel => channel.id === process.env.LOGS);
 
 	const muteLogsEmbed = new MessageEmbed()
-		.setDescription(`**Action :** Mute\n**Modérateur :** <@${interaction.member.user.id}> (${interaction.member.user.id})\n**Membre :** <@${mutedUser.id}> (${mutedUser.id})\n**Channel :** <#${interaction.channelId}>\n**Raison :** ${interaction.options.getString("reason")}`)
+		.setDescription(`**Action :** Mute\n**Modérateur :** <@${interaction.member.user.id}> (${interaction.member.user.id})\n**Membre :** <@${mutedUser.id}> (${mutedUser.id})\n**Channel :** <#${interaction.channelId}>\n**Raison :** ${interaction.options.getString("raison")}`)
 		.setFooter(`BotIUT v${version}`)
 		.setColor("#B19CD9")
 		.setTimestamp();
@@ -44,7 +44,7 @@ export const run: RunInterface = async (client, interaction) => {
 
 export const interaction: Object = {
 	name: "mute",
-	usage: "mute <user> <reason>",
+	usage: "mute <user> <raison>",
 	description: "Mute un membre du serveur",
 	/*permissions: [
 		{
@@ -61,7 +61,7 @@ export const interaction: Object = {
 			required: true,
 		},
 		{
-			name: "reason",
+			name: "raison",
 			type: "STRING",
 			description: "La raison du report",
 			required: true,

@@ -3,7 +3,7 @@ import { Command } from "../../interfaces/commands";
 import { RunInterface } from "../../interfaces/events";
 
 export const run: RunInterface = async (client, guild: Guild) => {
-    if(!guild.available) return;
+    if (!guild.available) return;
 
     // Register Slash commands to the guild
 
@@ -14,7 +14,7 @@ export const run: RunInterface = async (client, guild: Guild) => {
     });
 
     const fetchedGuild = await client.guilds.fetch(guild.id);
-    return fetchedGuild.commands.set(commandsData); 
+    return fetchedGuild.commands.set(commandsData);
 }
 
 export const name: string = "guildCreate";

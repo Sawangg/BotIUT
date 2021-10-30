@@ -1,6 +1,6 @@
 {
   "name": "botiut",
-  "version": "3.0.2",
+  "version": "3.0.3",
   "description": "Discord Bot de l'IUT Informatique du Limousin",
   "main": "index.js",
   "scripts": {
@@ -14,12 +14,12 @@
   "author": "Sawang",
   "license": "MIT",
   "dependencies": {
-    "bufferutil": "^4.0.4",
-    "discord.js": "^13.2.0",
+    "bufferutil": "^4.0.5",
+    "discord.js": "^13.3.0",
     "dotenv": "^10.0.0",
-    "node-gyp": "^8.2.0",
-    "typescript": "^4.4.3",
-    "utf-8-validate": "^5.0.6",
+    "node-gyp": "^8.3.0",
+    "typescript": "^4.4.4",
+    "utf-8-validate": "^5.0.7",
     "zlib-sync": "^0.1.7"
   }
 }

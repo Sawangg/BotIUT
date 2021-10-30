@@ -5,13 +5,13 @@ import { version } from "../config.json";
 export const run: RunInterface = async (client, interaction) => {
 
 	const reportedUser = interaction.options.getUser("user");
-    if(!interaction.guildId || !interaction.member || !reportedUser) return;
+	if (!interaction.guildId || !interaction.member || !reportedUser) return;
 
 	const guild = client.guilds.cache.get(interaction.guildId);
-	if(!guild) return;
+	if (!guild) return;
 
-    const logs = guild.channels.cache.find(channel => channel.id === process.env.LOGS);
-	if(!logs) return;
+	const logs = guild.channels.cache.find(channel => channel.id === process.env.LOGS);
+	if (!logs) return;
 
 	const reportLogsEmbed = new MessageEmbed()
 		.setDescription(`**Action :** Report\n**Membre :** <@${interaction.member.user.id}> (${interaction.member.user.id})\n**Reported :** <@${reportedUser.id}> (${reportedUser.id})\n**Channel :** <#${interaction.channelId}>\n**Raison :** ${interaction.options.getString("reason")}`)
@@ -28,7 +28,7 @@ export const run: RunInterface = async (client, interaction) => {
 
 export const interaction: Object = {
 	name: "report",
-	usage: "report <user> <reason>",
+	usage: "report <user> <raison> [message ID]",
 	description: "Report un membre à la modération",
 	options: [
 		{
@@ -38,7 +38,7 @@ export const interaction: Object = {
 			required: true,
 		},
 		{
-			name: "reason",
+			name: "raison",
 			type: "STRING",
 			description: "La raison du report",
 			required: true,

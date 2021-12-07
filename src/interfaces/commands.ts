@@ -1,8 +1,8 @@
 import { ApplicationCommandData, CommandInteraction } from "discord.js";
-import { Bot } from "../classes/client";
+import Bot from "../classes/client";
 
 export interface RunInterface {
-    (client: Bot, interaction: CommandInteraction): Promise<void>
+    (client: Bot, interaction: CommandInteraction): Promise<void> | void
 }
 
 export interface Command {

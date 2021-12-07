@@ -1,9 +1,8 @@
-import { GuildChannel, MessageEmbed, Permissions, TextChannel, User } from "discord.js";
+import { ApplicationCommandData, GuildChannel, MessageEmbed, Permissions, TextChannel, User } from "discord.js";
 import { RunInterface } from "../interfaces/commands";
 import { version } from "../config.json";
 
 export const run: RunInterface = async (client, interaction) => {
-
 	const mutedUser: User = interaction.options.getUser("user")!;
 	if (!interaction.guild || !interaction.member) return;
 
@@ -35,18 +34,17 @@ export const run: RunInterface = async (client, interaction) => {
 	const logs = interaction.guild.channels.cache.find(channel => channel.id === process.env.LOGS);
 
 	const unmuteLogsEmbed = new MessageEmbed()
-		.setDescription(`**Action :** Unmute\n**Modérateur :** <@${interaction.member.user.id}> (${interaction.member.user.id})\n**Membre :** <@${mutedUser.id}> (${mutedUser.id})\n**Channel :** <#${interaction.channelId}>\n**Raison :** ${interaction.options.getString("raison") ? interaction.options.getString("raison") : "Aucune raison spécifiée"}`)
+		.setDescription(`**Action :** Unmute\n**Modérateur :** ${interaction.member} (${interaction.member.user.id})\n**Membre :** ${mutedUser} (${mutedUser.id})\n**Channel :** ${interaction.guild.channels.cache.get(interaction.channelId)?.toString()}\n**Raison :** ${interaction.options.getString("raison") ? interaction.options.getString("raison") : "Aucune raison spécifiée"}`)
 		.setFooter(`BotIUT v${version}`)
 		.setColor("#A3FF84")
 		.setTimestamp();
 	(logs as TextChannel)?.send({ embeds: [unmuteLogsEmbed] });
-}
+};
 
-export const interaction: Object = {
+export const interaction: ApplicationCommandData = {
 	name: "unmute",
-	usage: "unmute <user> [raison]",
 	description: "Unmute un membre du serveur",
-	/*permissions: [
+	/* Permissions: [
 		{
 			id: process.env.MODID,
 			type: "ROLE",

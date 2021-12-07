@@ -1,4 +1,4 @@
-FROM node:17.1.0-alpine
+FROM node:17.2.0-alpine
 
 # Install Python3 & build tools
 RUN apk add --update --no-cache curl py-pip make g++
@@ -6,7 +6,7 @@ RUN apk add --update --no-cache curl py-pip make g++
 # Install the project
 WORKDIR /home/botiut
 COPY package*.json ./
-RUN npm install
+RUN npm ci
 COPY . /home/botiut
 
 # Build & run

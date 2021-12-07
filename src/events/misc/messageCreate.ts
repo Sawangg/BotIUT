@@ -1,3 +1,4 @@
+/* eslint-disable no-useless-escape */
 import { ApplicationCommandData, Message, MessageEmbed, Permissions, TextChannel } from "discord.js";
 import { RunInterface } from "../../interfaces/events";
 import { version } from "../../config.json";
@@ -18,7 +19,7 @@ export const run: RunInterface = async (client, message: Message) => {
                 .setColor("#FF3232")
                 .setTimestamp();
             (logs as TextChannel)?.send({ embeds: [freeNitroEmb] });
-            return message.delete();
+            message.delete();
         }
     }
 
@@ -31,7 +32,7 @@ export const run: RunInterface = async (client, message: Message) => {
                 .setColor("#FF4C4C")
                 .setTimestamp();
             (logs as TextChannel)?.send({ embeds: [delInvEmb] });
-            return message.delete();
+            message.delete();
         }
     }
 
@@ -44,7 +45,7 @@ export const run: RunInterface = async (client, message: Message) => {
                 .setColor("#E7A854")
                 .setTimestamp();
             (logs as TextChannel)?.send({ embeds: [delShortLinkEmb] });
-            return message.delete();
+            message.delete();
         }
     }
 
@@ -58,8 +59,8 @@ export const run: RunInterface = async (client, message: Message) => {
 
         const fetchedGuild = await client.guilds.fetch(message.guild.id);
         fetchedGuild.commands.set(commandsData);
-        return message.channel.send("Commandes slashs enregistrées !");
+        message.channel.send("Commandes slashs enregistrées !");
     }
-}
+};
 
-export const name: string = "messageCreate";
+export const name = "messageCreate";

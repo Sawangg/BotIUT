@@ -1,9 +1,8 @@
-import { Message, MessageEmbed, Permissions, TextChannel } from "discord.js";
+import { ApplicationCommandData, Message, MessageEmbed, Permissions, TextChannel } from "discord.js";
 import { RunInterface } from "../interfaces/commands";
 import { version } from "../config.json";
 
 export const run: RunInterface = async (_client, interaction) => {
-
 	if (!interaction.guild || !interaction.member) return;
 
 	if (!interaction.guild.members.cache.get(interaction.member.user.id)?.permissions.has(Permissions.FLAGS.MANAGE_MESSAGES)) {
@@ -16,10 +15,10 @@ export const run: RunInterface = async (_client, interaction) => {
 	const channel = await interaction.channel?.fetch();
 	(channel as TextChannel).messages.fetch(interaction.options.getString("msg")!).then((message: Message) => {
 		if (!interaction.guild || !interaction.member) return;
-		const logs = interaction.guild.channels.cache.find(channel => channel.id === process.env.LOGS);
+		const logs = interaction.guild.channels.cache.find(c => c.id === process.env.LOGS);
 
 		const muteLogsEmbed = new MessageEmbed()
-			.setDescription(`**Action :** Suppression de message (Clean)\n**Modérateur :** <@${interaction.member.user.id}> (${interaction.member.user.id})\n**Membre :** <@${message.author.id}> (${message.author.id})\n**Channel :** <#${message.channelId}> (${message.channelId})\n**Message :** ${message.content}\n**Raison :** ${interaction.options.getString("raison")}`)
+			.setDescription(`**Action :** Suppression de message (Clean)\n**Modérateur :** ${interaction.member} (${interaction.member.user.id})\n**Membre :** ${message.author} (${message.author.id})\n**Channel :** ${interaction.guild.channels.cache.get(interaction.channelId)?.toString()} (${message.channelId})\n**Message :** ${message.content}\n**Raison :** ${interaction.options.getString("raison")}`)
 			.setFooter(`BotIUT v${version}`)
 			.setColor("#DB3E79")
 			.setTimestamp();
@@ -44,11 +43,10 @@ export const run: RunInterface = async (_client, interaction) => {
 			.setColor("RED");
 		return interaction.reply({ embeds: [repEmbed], ephemeral: true });
 	});
-}
+};
 
-export const interaction: Object = {
+export const interaction: ApplicationCommandData = {
 	name: "clean",
-	usage: "clean <user> <raison>",
 	description: "Supprime un message",
 	options: [
 		{

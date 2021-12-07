@@ -1,7 +1,8 @@
-import { Bot } from "../classes/client";
+import Bot from "../classes/client";
 
 export interface RunInterface {
-    (client: Bot, ...args: any[]): Promise<any>,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    (client: Bot, ...args: Array<any>): Promise<void> | void,
 }
 
 export interface Event {

@@ -6,16 +6,16 @@ import path from "path";
 
 class Bot extends Client {
     public commands: Collection<string, Command> = new Collection();
-    public events: Collection<string, Event> = new Collection();
+    private events: Collection<string, Event> = new Collection();
 
     public constructor() {
         super({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MEMBERS, Intents.FLAGS.GUILD_MESSAGES] });
     }
 
     public async start(): Promise<void> {
-        this.registerEvents();
-        this.registerInteractions();
-        this.login(process.env.TOKEN);
+        await this.registerEvents();
+        await this.registerInteractions();
+        await this.login(process.env.TOKEN);
     }
 
     public async registerEvents(dir = "../events") {
@@ -23,7 +23,7 @@ class Bot extends Client {
         for (const file of files) {
             const stat = await fs.lstat(path.join(__dirname, dir, file));
             if (stat.isDirectory()) {
-                await this.registerEvents(path.join(dir, file));
+                this.registerEvents(path.join(dir, file));
             } else if (file.endsWith(".js")) {
                 try {
                     const eventModule: Event = await import(path.join(__dirname, dir, file));
@@ -41,7 +41,7 @@ class Bot extends Client {
         for (const file of files) {
             const stat = await fs.lstat(path.join(__dirname, dir, file));
             if (stat.isDirectory()) {
-                await this.registerInteractions(path.join(dir, file));
+                this.registerInteractions(path.join(dir, file));
             } else if (file.endsWith(".js")) {
                 try {
                     const cmdModule: Command = await import(path.join(__dirname, dir, file));
@@ -54,4 +54,4 @@ class Bot extends Client {
     }
 }
 
-export { Bot };
+export default Bot;

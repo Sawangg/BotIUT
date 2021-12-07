@@ -9,6 +9,10 @@ Ce dépôt contient un Dockerfile pouvant être build. Pour se faire, clonez le 
 ```sh
 TOKEN=Token de votre bot Discord
 LOGS=id Discord du channel textuel de logs
+BACKURL=L url backend contenant les edt
+A1=id du role A1
+A2=id du role A2
+A3=id du role A3
 ```
 
 Puis, procédez à l'installation ainsi qu'au lancement :

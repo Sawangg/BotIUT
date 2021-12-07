@@ -1,9 +1,8 @@
-import { MessageEmbed, TextChannel } from "discord.js";
+import { ApplicationCommandData, MessageEmbed, TextChannel } from "discord.js";
 import { RunInterface } from "../interfaces/commands";
 import { version } from "../config.json";
 
-export const run: RunInterface = async (client, interaction) => {
-
+export const run: RunInterface = (client, interaction) => {
 	const reportedUser = interaction.options.getUser("user");
 	if (!interaction.guildId || !interaction.member || !reportedUser) return;
 
@@ -14,7 +13,7 @@ export const run: RunInterface = async (client, interaction) => {
 	if (!logs) return;
 
 	const reportLogsEmbed = new MessageEmbed()
-		.setDescription(`**Action :** Report\n**Membre :** <@${interaction.member.user.id}> (${interaction.member.user.id})\n**Reported :** <@${reportedUser.id}> (${reportedUser.id})\n**Channel :** <#${interaction.channelId}>\n**Raison :** ${interaction.options.getString("reason")}`)
+		.setDescription(`**Action :** Report\n**Membre :** ${interaction.member} (${interaction.member.user.id})\n**Reported :** ${reportedUser} (${reportedUser.id})\n**Channel :** ${interaction.guild!.channels.cache.get(interaction.channelId)?.toString()}\n**Raison :** ${interaction.options.getString("reason")}`)
 		.setFooter(`BotIUT v${version}`)
 		.setColor("#4752C4")
 		.setTimestamp();
@@ -24,11 +23,10 @@ export const run: RunInterface = async (client, interaction) => {
 		.setDescription("Ton report a bien été envoyé !")
 		.setColor("WHITE");
 	return interaction.reply({ embeds: [repEmbed], ephemeral: true });
-}
+};
 
-export const interaction: Object = {
+export const interaction: ApplicationCommandData = {
 	name: "report",
-	usage: "report <user> <raison> [message ID]",
 	description: "Report un membre à la modération",
 	options: [
 		{

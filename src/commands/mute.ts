@@ -1,9 +1,9 @@
-import { ApplicationCommandData, GuildChannel, MessageEmbed, Permissions, TextChannel, User } from "discord.js";
+import { ApplicationCommandData, GuildChannel, MessageEmbed, Permissions, TextChannel } from "discord.js";
 import { RunInterface } from "../interfaces/commands";
 import { version } from "../config.json";
 
 export const run: RunInterface = async (client, interaction) => {
-	const mutedUser: User = interaction.options.getUser("user")!;
+	const mutedUser = interaction.options.getUser("user")!;
 	if (!interaction.guild || !interaction.member) return;
 
 	if (!interaction.guild.members.cache.get(interaction.member.user.id)?.permissions.has(Permissions.FLAGS.MANAGE_MESSAGES)) {

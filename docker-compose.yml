@@ -1,0 +1,24 @@
+version: '3.9'
+
+services:
+  autobuy:
+    image: sawangg/botiut
+    restart: always
+    container_name: 'BotIUT'
+    build:
+      dockerfile: ./Dockerfile
+    environment: 
+      - DB_URL=mongodb://root:pwd@mongodb:27017/
+
+  database:
+    image: mongo
+    restart: always
+    container_name: 'mongodb'
+    volumes:
+      - ~/mongo/botiut/data:/data/db
+    ports:
+      - 27017:27017
+    environment:
+      MONGO_INITDB_DATABASE: botiutdb
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: pwd

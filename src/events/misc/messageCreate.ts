@@ -3,6 +3,7 @@ import { ApplicationCommandData, Message, MessageEmbed, Permissions, TextChannel
 import { RunInterface } from "../../interfaces/events";
 import { version } from "../../config.json";
 import { Command } from "../../interfaces/commands";
+import userConfig from "../../database/schemas/User";
 
 export const run: RunInterface = async (client, message: Message) => {
     if ((!message.guild) || (message.author.bot)) return;
@@ -53,13 +54,23 @@ export const run: RunInterface = async (client, message: Message) => {
     if (message.member?.permissions.has(Permissions.FLAGS.ADMINISTRATOR) && message.content.toLowerCase() === "!register") {
         const commandsData: Array<ApplicationCommandData> = [];
 
-        client.commands.forEach((value: Command) => {
-            commandsData.push(value.interaction);
-        });
+        client.commands.forEach((value: Command) => commandsData.push(value.interaction));
 
         const fetchedGuild = await client.guilds.fetch(message.guild.id);
         fetchedGuild.commands.set(commandsData);
         message.channel.send("Commandes slashs enregistrées !");
+    }
+
+    // XP system
+    let row = await userConfig.findOneAndUpdate({ id: message.author.id }, { $inc: { xp: 1 } });
+    if (!row) row = await userConfig.create({ id: message.author.id, xp: 1 });
+
+    if (message.member?.premiumSince) {
+        const xpNeededToLvlUp = 6 * (row.lvl ^ 2) + (50 * row.lvl) + 75;
+        if (row.xp >= xpNeededToLvlUp) await userConfig.findOneAndUpdate({ id: message.author.id }, { $inc: { lvl: 1 } });
+    } else {
+        const xpNeededToLvlUp = 7 * (row.lvl ^ 2) + (50 * row.lvl) + 75;
+        if (row.xp >= xpNeededToLvlUp) await userConfig.findOneAndUpdate({ id: message.author.id }, { $inc: { lvl: 1 } });
     }
 };
 

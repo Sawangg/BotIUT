@@ -2,16 +2,16 @@ version: '3.9'
 
 services:
   bot:
-    image: sawangg/botiut
     restart: always
     container_name: 'BotIUT'
     build:
-      dockerfile: ./Dockerfile
+      context: .
+      dockerfile: Dockerfile
     environment: 
       - DB_URL=mongodb://root:pwd@mongodb:27017/
 
   database:
-    image: mongo
+    image: mongo:latest
     restart: always
     container_name: 'mongodb'
     volumes:

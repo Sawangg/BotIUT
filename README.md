@@ -18,6 +18,5 @@ A3=id du role A3
 Puis, procédez à l'installation ainsi qu'au lancement :
 
 ```sh
-docker build . -t botiut
-docker run -d --name BotIUT botiut
+docker-compose -f "docker-compose.yml" up -d --build
 ```

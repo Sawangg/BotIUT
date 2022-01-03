@@ -11,7 +11,7 @@ services:
       - DB_URL=mongodb://root:pwd@mongodb:27017/
 
   database:
-    image: mongo:latest
+    image: mongo:4.4.12-rc0-focal
     restart: always
     container_name: 'mongodb'
     volumes:

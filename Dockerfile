@@ -1,14 +1,17 @@
-FROM node:17.2.0-alpine
+FROM node:alpine
+
+# Setup env
+ENV FORCE_COLOR=1
 
 # Install Python3 & build tools
 RUN apk add --update --no-cache curl py-pip make g++
 
-# Install the project
+# Install the bot
 WORKDIR /home/botiut
-COPY package*.json ./
-RUN npm ci
-COPY . /home/botiut
+COPY package.json yarn.lock ./
+RUN yarn --pure-lockfile
+COPY . .
 
 # Build & run
-RUN npm run build
-CMD [ "npm", "start" ]
+RUN yarn build
+CMD [ "yarn", "start:prod" ]

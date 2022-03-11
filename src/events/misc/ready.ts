@@ -1,5 +1,5 @@
-import { RunInterface } from "../../interfaces/events";
-import { version } from "../../config.json";
+import type { RunInterface } from "../../interfaces/events";
+import { version } from "../../index";
 
 export const run: RunInterface = () => {
     console.log("═════════════════════════════════════════════");

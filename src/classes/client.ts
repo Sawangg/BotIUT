@@ -1,6 +1,6 @@
 import { Client, Intents, Collection } from "discord.js";
-import { Command } from "../interfaces/commands";
-import { Event } from "../interfaces/events";
+import type { Command } from "../interfaces/commands";
+import type { Event } from "../interfaces/events";
 import fs from "fs/promises";
 import path from "path";
 

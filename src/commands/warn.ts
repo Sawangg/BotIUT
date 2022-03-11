@@ -1,7 +1,7 @@
 import { ApplicationCommandData, MessageEmbed, Permissions, TextChannel } from "discord.js";
-import { RunInterface } from "../interfaces/commands";
+import type { RunInterface } from "../interfaces/commands";
 import userConfig from "../database/schemas/User";
-import { version } from "../config.json";
+import { version } from "../index";
 
 export const run: RunInterface = async (client, interaction) => {
     const warnedUser = interaction.options.getUser("user")!;

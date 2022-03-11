@@ -1,6 +1,6 @@
 import { ApplicationCommandData, Message, MessageEmbed, Permissions, TextChannel } from "discord.js";
-import { RunInterface } from "../interfaces/commands";
-import { version } from "../config.json";
+import type { RunInterface } from "../interfaces/commands";
+import { version } from "../index";
 
 export const run: RunInterface = async (_client, interaction) => {
 	if (!interaction.guild || !interaction.member) return;

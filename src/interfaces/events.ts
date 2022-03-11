@@ -1,4 +1,4 @@
-import Bot from "../classes/client";
+import type Bot from "../classes/client";
 
 export interface RunInterface {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any

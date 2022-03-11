@@ -1,8 +1,8 @@
 /* eslint-disable no-useless-escape */
 import { ApplicationCommandData, Message, MessageEmbed, Permissions, TextChannel } from "discord.js";
-import { RunInterface } from "../../interfaces/events";
-import { version } from "../../config.json";
-import { Command } from "../../interfaces/commands";
+import type { RunInterface } from "../../interfaces/events";
+import { version } from "../../index";
+import type { Command } from "../../interfaces/commands";
 import userConfig from "../../database/schemas/User";
 
 export const run: RunInterface = async (client, message: Message) => {

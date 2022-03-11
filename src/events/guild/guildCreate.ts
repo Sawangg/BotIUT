@@ -1,6 +1,6 @@
-import { ApplicationCommandData, Guild } from "discord.js";
-import { Command } from "../../interfaces/commands";
-import { RunInterface } from "../../interfaces/events";
+import type { ApplicationCommandData, Guild } from "discord.js";
+import type { Command } from "../../interfaces/commands";
+import type { RunInterface } from "../../interfaces/events";
 
 export const run: RunInterface = async (client, guild: Guild) => {
     if (!guild.available) return;

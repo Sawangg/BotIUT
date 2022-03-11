@@ -1,5 +1,5 @@
 import { ApplicationCommandData, MessageEmbed } from "discord.js";
-import { RunInterface } from "../interfaces/commands";
+import type { RunInterface } from "../interfaces/commands";
 
 export const run: RunInterface = (_client, interaction) => {
 	const abtmeEmbed = new MessageEmbed()

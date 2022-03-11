@@ -1,10 +1,12 @@
-import { ApplicationCommandData, GuildChannel, MessageEmbed, Permissions, TextChannel } from "discord.js";
-import { RunInterface } from "../interfaces/commands";
-import { version } from "../config.json";
+import { ApplicationCommandData, MessageEmbed, Permissions, TextChannel } from "discord.js";
+import type { RunInterface } from "../interfaces/commands";
+import { version } from "../index";
 
 export const run: RunInterface = async (client, interaction) => {
-	const mutedUser = interaction.options.getUser("user")!;
 	if (!interaction.guild || !interaction.member) return;
+	const member = await client.guilds.cache.get(interaction.guildId!)!.members.fetch(interaction.options.getUser("user")!);
+	const reason = interaction.options.getString("reason")! ?? "Aucune raison";
+	const msTime = interaction.options.getInteger("time")! * 60000;
 
 	if (!interaction.guild.members.cache.get(interaction.member.user.id)?.permissions.has(Permissions.FLAGS.MANAGE_MESSAGES)) {
 		const repEmbed = new MessageEmbed()
@@ -13,44 +15,38 @@ export const run: RunInterface = async (client, interaction) => {
 		return interaction.reply({ embeds: [repEmbed], ephemeral: true });
 	}
 
-	const mutedMember = interaction.guild.members.cache.get(mutedUser.id);
-	if (!mutedMember || mutedMember?.permissions.has(Permissions.FLAGS.MANAGE_MESSAGES) || interaction.member.user.id === mutedUser.id || client.user!.id === mutedUser.id) {
+	if (!member || member?.permissions.has(Permissions.FLAGS.MANAGE_MESSAGES)) {
 		const repEmbed = new MessageEmbed()
 			.setDescription("Cette utilisateur ne peut pas être mute !")
 			.setColor("RED");
 		return interaction.reply({ embeds: [repEmbed], ephemeral: true });
 	}
 
-	const channels = await interaction.guild.channels.fetch();
-	channels.forEach(async (channel: GuildChannel) => {
-		if (channel.type === "GUILD_TEXT") await channel.permissionOverwrites.create(mutedMember, { SEND_MESSAGES: false });
+	member.timeout(msTime, reason).then(() => {
+		const repEmbed = new MessageEmbed()
+			.setDescription("La personne a bien été mute !")
+			.setColor("GREEN");
+		interaction.reply({ embeds: [repEmbed], ephemeral: true });
+
+		const logs = interaction.guild!.channels.cache.find(channel => channel.id === process.env.LOGS);
+
+		const muteLogsEmbed = new MessageEmbed()
+			.setDescription(`**Action :** Mute\n**Modérateur :** ${interaction.member} (${interaction.member!.user.id})\n**Membre :** ${member.toString()} (${member.id})\n**Channel :** ${interaction.guild!.channels.cache.get(interaction.channelId)?.toString()}\n**Raison :** ${interaction.options.getString("reason")}`)
+			.setFooter(`BotIUT v${version}`)
+			.setColor("#B19CD9")
+			.setTimestamp();
+		(logs as TextChannel)?.send({ embeds: [muteLogsEmbed] });
+	}).catch(() => {
+		const repEmbed = new MessageEmbed()
+			.setDescription("Une erreur fatale est survenue !")
+			.setColor("RED");
+		return interaction.reply({ embeds: [repEmbed], ephemeral: true });
 	});
-
-	const repEmbed = new MessageEmbed()
-		.setDescription("La personne a bien été mute !")
-		.setColor("GREEN");
-	interaction.reply({ embeds: [repEmbed], ephemeral: true });
-
-	const logs = interaction.guild.channels.cache.find(channel => channel.id === process.env.LOGS);
-
-	const muteLogsEmbed = new MessageEmbed()
-		.setDescription(`**Action :** Mute\n**Modérateur :** ${interaction.member} (${interaction.member.user.id})\n**Membre :** ${mutedUser} (${mutedUser.id})\n**Channel :** ${interaction.guild.channels.cache.get(interaction.channelId)?.toString()}\n**Raison :** ${interaction.options.getString("raison")}`)
-		.setFooter(`BotIUT v${version}`)
-		.setColor("#B19CD9")
-		.setTimestamp();
-	(logs as TextChannel)?.send({ embeds: [muteLogsEmbed] });
 };
 
 export const interaction: ApplicationCommandData = {
 	name: "mute",
 	description: "Mute un membre du serveur",
-	/* Permissions: [
-		{
-			id: process.env.MODID,
-			type: "ROLE",
-			permission: true
-		}
-	],*/
 	options: [
 		{
 			name: "user",
@@ -59,9 +55,15 @@ export const interaction: ApplicationCommandData = {
 			required: true,
 		},
 		{
-			name: "raison",
+            name: "time",
+            type: "INTEGER",
+            description: "Le timeout en minute (0 pour unmute)",
+            required: true,
+        },
+		{
+			name: "reason",
 			type: "STRING",
-			description: "La raison du report",
+			description: "La raison du mute",
 			required: true,
 		},
 	],

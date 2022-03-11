@@ -1,6 +1,6 @@
 import { ApplicationCommandData, MessageEmbed, TextChannel } from "discord.js";
-import { RunInterface } from "../interfaces/commands";
-import { version } from "../config.json";
+import type { RunInterface } from "../interfaces/commands";
+import { version } from "../index";
 
 export const run: RunInterface = (client, interaction) => {
 	const reportedUser = interaction.options.getUser("user");

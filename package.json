@@ -1,6 +1,6 @@
 {
     "name": "botiut",
-    "version": "3.0.6",
+    "version": "3.0.7",
     "description": "Discord Bot de l'IUT Informatique du Limousin",
     "main": "index.js",
     "scripts": {
@@ -20,15 +20,15 @@
         "bufferutil": "^4.0.5",
         "discord.js": "^13.3.1",
         "dotenv": "^16.0.0",
-        "mongoose": "^6.2.5",
+        "mongoose": "^6.2.10",
         "node-fetch": "^2.6.6",
-        "typescript": "^4.5.3",
+        "typescript": "^4.6.3",
         "utf-8-validate": "^5.0.9",
         "zlib-sync": "^0.1.7"
     },
     "devDependencies": {
-        "@typescript-eslint/eslint-plugin": "^5.14.0",
-        "@typescript-eslint/parser": "^5.14.0",
-        "eslint": "^8.4.1"
+        "@typescript-eslint/eslint-plugin": "^5.18.0",
+        "@typescript-eslint/parser": "^5.18.0",
+        "eslint": "^8.12.0"
     }
 }

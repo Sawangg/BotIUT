@@ -1,4 +1,4 @@
-# BotIUT v3.0.6
+# BotIUT v3.0.7
 
 Bot Discord en TypeScript pour le serveur Discord de l'IUT Informatique du Limousin
 
@@ -9,6 +9,7 @@ Ce dépôt contient un Dockerfile pouvant être build. Pour se faire, clonez le 
 ```sh
 TOKEN=Token de votre bot Discord
 LOGS=id Discord du channel textuel de logs
+DELEGUEID=id du rôle des délégués
 ```
 
 Puis, procédez à l'installation ainsi qu'au lancement :

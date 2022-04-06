@@ -16,9 +16,7 @@ export const run: RunInterface = async (_client, interaction) => {
 
     const repEmbed = new MessageEmbed()
         .setDescription(`✨ Classement du serveur :
-        \n1. ${(await interaction.guild.members.fetch(row[0].id)).toString()}: ${row[0].lvl} lvl (${row[0].xp}xp)
-        \n2. ${(await interaction.guild.members.fetch(row[1].id)).toString()}: ${row[1].lvl} lvl (${row[1].xp}xp)
-        \n3. ${(await interaction.guild.members.fetch(row[2].id)).toString()}: ${row[2].lvl} lvl (${row[2].xp}xp)`)
+        \n1. ${(await interaction.guild.members.fetch(row[0].id)).toString()}: ${row[0].lvl} lvl (${row[0].xp}xp)\n2. ${(await interaction.guild.members.fetch(row[1].id)).toString()}: ${row[1].lvl} lvl (${row[1].xp}xp)\n3. ${(await interaction.guild.members.fetch(row[2].id)).toString()}: ${row[2].lvl} lvl (${row[2].xp}xp)`)
         .setFooter(`BotIUT v${version}`)
         .setColor("WHITE")
         .setTimestamp();

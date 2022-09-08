@@ -1,14 +1,14 @@
-import { ApplicationCommandData, MessageEmbed } from "discord.js";
+import { ApplicationCommandData, EmbedBuilder } from "discord.js";
 import type { RunInterface } from "../interfaces/commands";
 
 export const run: RunInterface = (_client, interaction) => {
-	const abtmeEmbed = new MessageEmbed()
-		.setDescription("💗 Dev par Léo Mercier • [Github](https://github.com/Sawangg/BotIUT)")
-		.setColor("WHITE");
-	return interaction.reply({ embeds: [abtmeEmbed], ephemeral: true });
+    const abtmeEmbed = new EmbedBuilder()
+        .setDescription("💗 Dev par Léo Mercier • [Github](https://github.com/Sawangg/BotIUT)")
+        .setColor("White");
+    return interaction.reply({ embeds: [abtmeEmbed], ephemeral: true });
 };
 
 export const interaction: ApplicationCommandData = {
-	name: "aboutme",
-	description: "Obtiens les informations sur le bot",
+    name: "aboutme",
+    description: "Obtiens les informations sur le bot",
 };

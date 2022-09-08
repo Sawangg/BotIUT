@@ -1,4 +1,4 @@
-import { Client, Intents, Collection } from "discord.js";
+import { Client, Collection, GatewayIntentBits } from "discord.js";
 import type { Command } from "../interfaces/commands";
 import type { Event } from "../interfaces/events";
 import fs from "fs/promises";
@@ -9,7 +9,13 @@ class Bot extends Client {
     private events: Collection<string, Event> = new Collection();
 
     public constructor() {
-        super({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MEMBERS, Intents.FLAGS.GUILD_MESSAGES] });
+        super({
+            intents: [
+                GatewayIntentBits.Guilds,
+                GatewayIntentBits.GuildMembers,
+                GatewayIntentBits.GuildMessages,
+            ],
+        });
     }
 
     public async start(): Promise<void> {

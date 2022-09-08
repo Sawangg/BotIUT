@@ -2,10 +2,10 @@ import type { Snowflake } from "discord.js";
 import { Schema, model, Document } from "mongoose";
 
 export interface IUserSchema extends Document {
-    id: Snowflake,
-    xp: number,
-    lvl: number,
-    warn: number,
+    id: Snowflake;
+    xp: number;
+    lvl: number;
+    warn: number;
 }
 
 const UserSchema = new Schema<IUserSchema>({

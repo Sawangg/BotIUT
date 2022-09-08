@@ -10,6 +10,7 @@ Ce dépôt contient un Dockerfile pouvant être build. Pour se faire, clonez le 
 TOKEN=Token de votre bot Discord
 LOGS=id Discord du channel textuel de logs
 DELEGUEID=id du rôle des délégués
+OEILID=id du rôle de l'oeil
 ```
 
 Puis, procédez à l'installation ainsi qu'au lancement :

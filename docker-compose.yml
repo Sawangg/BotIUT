@@ -1,14 +1,14 @@
 version: '3.9'
 
 services:
-  bot:
-    restart: always
-    container_name: 'BotIUT'
-    build:
-      context: .
-      dockerfile: Dockerfile
-    environment: 
-      - DB_URL=mongodb://root:pwd@mongodb:27017/
+  # bot:
+  #   restart: always
+  #   container_name: 'BotIUT'
+  #   build:
+  #     context: .
+  #     dockerfile: Dockerfile
+  #   environment: 
+  #     - DB_URL=mongodb://root:pwd@mongodb:27017/
 
   database:
     image: mongo:4.4.12-rc0-focal

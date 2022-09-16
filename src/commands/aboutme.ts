@@ -1,6 +1,6 @@
 import { ApplicationCommandData, EmbedBuilder } from "discord.js";
 import type { RunInterface } from "../interfaces/commands";
-import { version } from "index";
+import { version } from "../index";
 
 export const run: RunInterface = (_client, interaction) => {
     const abtmeEmbed = new EmbedBuilder()

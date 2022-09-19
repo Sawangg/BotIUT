@@ -1,4 +1,4 @@
-# BotIUT v3.1.1
+# BotIUT v3.2.0
 
 Bot Discord en TypeScript pour le serveur Discord de l'IUT Informatique du Limousin
 

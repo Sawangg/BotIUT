@@ -14,6 +14,7 @@ class Bot extends Client {
                 GatewayIntentBits.Guilds,
                 GatewayIntentBits.GuildMembers,
                 GatewayIntentBits.GuildMessages,
+                GatewayIntentBits.MessageContent,
             ],
         });
     }
